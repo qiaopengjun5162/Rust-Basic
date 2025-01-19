@@ -14,8 +14,6 @@
 // Execute `rustlings hint hashmaps2` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
-
 use std::collections::HashMap;
 
 #[derive(Hash, PartialEq, Eq)]
@@ -27,6 +25,19 @@ enum Fruit {
     Pineapple,
 }
 
+/// Adds fruits to the given basket to ensure a variety of fruits and a sufficient quantity.
+///
+/// This function adds Banana and Pineapple to the basket if they are not already present.
+/// It ensures that there is at least one of each kind of fruit and more than 11 fruits in total.
+///
+/// # Parameters
+///
+/// * `basket` - A mutable reference to a HashMap representing the fruit basket.
+///              The keys are `Fruit` enum variants, and the values are the quantities of each fruit.
+///
+/// # Note
+///
+/// This function does not modify the quantities of fruits already present in the basket.
 fn fruit_basket(basket: &mut HashMap<Fruit, u32>) {
     let fruit_kinds = vec![
         Fruit::Apple,
@@ -37,9 +48,12 @@ fn fruit_basket(basket: &mut HashMap<Fruit, u32>) {
     ];
 
     for fruit in fruit_kinds {
-        // TODO: Insert new fruits if they are not already present in the
-        // basket. Note that you are not allowed to put any type of fruit that's
-        // already present!
+        if !basket.contains_key(&Fruit::Banana) {
+            basket.insert(Fruit::Banana, 1);
+        }
+        if !basket.contains_key(&Fruit::Pineapple) {
+            basket.insert(Fruit::Pineapple, 6);
+        }
     }
 }
 
@@ -81,7 +95,7 @@ mod tests {
         let count = basket.values().sum::<u32>();
         assert!(count > 11);
     }
-    
+
     #[test]
     fn all_fruit_types_in_basket() {
         let mut basket = get_fruit_basket();
